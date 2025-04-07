@@ -24,3 +24,4 @@
 
 ※개발 일정※
 
+![Image](https://github.com/user-attachments/assets/8b157695-d83a-4e70-af9a-3d0bb636d836)
