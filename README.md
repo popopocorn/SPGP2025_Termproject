@@ -8,7 +8,8 @@
 조이스틱 버튼, 적의 랜덤 생성 및 단계적 증가, 간단한 아이템, 강화 구현
 
 게임 흐름
-https://github.com/user-attachments/assets/8bc4febc-6bc6-4de2-b5da-b8466d09d7b7
+![Image](https://github.com/user-attachments/assets/8bc4febc-6bc6-4de2-b5da-b8466d09d7b7)
+
 전투->성장의 간단한 구조, 기존의 뱀서류 게임처럼 적을 처치하여 경험치를 모은 후, 이를통한 성장
 
 개발 일정
