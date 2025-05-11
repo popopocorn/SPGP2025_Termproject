@@ -3,18 +3,16 @@ package kr.ac.tukorea.minseokang.a2025spgp_termproject.game;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.minseokang.a2025spgp_termproject.R;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Score;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
-import kr.ac.tukorea.minseokang.a2025spgp_termproject.game.CollisionChecker;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 public class MainScene extends Scene {
     private static final String TAG = MainScene.class.getSimpleName();
-    private final Fighter fighter;
+    private final Mushmom player;
+    private static final JoyStick joyStick= new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 450, 1400, 200, 60, 160);
     //private final Score score;
 
     public enum Layer {
-        bg1, enemy, bullet, fighter, bg2, ui, controller;
+        bg1, enemy, bullet, player, bg2, ui, controller;
         public static final int COUNT = values().length;
     }
     public MainScene() {
@@ -24,15 +22,17 @@ public class MainScene extends Scene {
         //add(Layer.bg1, new VertScrollBackground(R.mipmap.bg_city, 20));
         //add(Layer.bg2, new VertScrollBackground(R.mipmap.clouds, 40));
 
-        this.fighter = new Fighter();
-        add(Layer.fighter, fighter);
+        this.player = new Mushmom();
+        add(Layer.player, player);
 
         // this.score = new Score(R.mipmap.number_24x32, 850f, 50f, 60f);
         //score.setScore(0);
         //add(Layer.ui, score);
 
+
+        add(Layer.ui, joyStick);
         //add(Layer.controller, new EnemyGenerator(this));
-        add(Layer.controller, new CollisionChecker(this));
+        //add(Layer.controller, new CollisionChecker(this));
     }
     public void addScore(int amount) {
         //score.add(amount);
@@ -43,9 +43,9 @@ public class MainScene extends Scene {
     }
 
     // Overridables
-
+    public static JoyStick getJoyStick(){ return joyStick;}
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return fighter.onTouch(event);
+        return joyStick.onTouch(event);
     }
 }

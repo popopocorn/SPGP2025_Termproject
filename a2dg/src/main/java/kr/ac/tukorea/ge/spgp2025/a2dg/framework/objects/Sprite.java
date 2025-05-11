@@ -72,7 +72,7 @@ public class Sprite implements IGameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+        canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 
     @NonNull

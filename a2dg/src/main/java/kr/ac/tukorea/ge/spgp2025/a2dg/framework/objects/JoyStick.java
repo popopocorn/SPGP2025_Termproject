@@ -26,7 +26,8 @@ public class JoyStick implements IGameObject {
 
     private boolean visible;
     private float startX, startY;
-    public float power, angle_radian;
+    public float power;
+    public static float angle_radian;
     public JoyStick(int bgBmpId, int thumbBmpId, float x, float y, float bg_radius, float thumb_radius, float move_radius) {
         this.x = x; this.y = y;
         this.bg_radius = bg_radius;
@@ -39,6 +40,8 @@ public class JoyStick implements IGameObject {
     }
     @Override
     public void update() {
+
+        //Log.d("angle", String.valueOf(angle_radian));
     }
 
     @Override
@@ -46,6 +49,7 @@ public class JoyStick implements IGameObject {
         if (!visible) return;
         canvas.drawBitmap(bgBitmap, null, bgRect, null);
         canvas.drawBitmap(thumbBitmap, null, thumbRect, null);
+
     }
 
     public boolean onTouch(MotionEvent event) {
@@ -73,7 +77,7 @@ public class JoyStick implements IGameObject {
                 power = (float) (radius / move_radius);
                 float cx = x + dx, cy = y + dy;
                 //Log.d(TAG, "sx="+startX+" sy="+startY+" dx="+dx + " dy=" + dy + " x=" + x + " y=" + y + " cx=" + cx + " cy=" + cy);
-                Log.d(TAG, "angle=" + (int)Math.toDegrees(angle_radian) + "° power=" + String.format("%.2f", power));
+                //Log.d(TAG, "angle=" + (int)Math.toDegrees(angle_radian) + "° power=" + String.format("%.2f", power));
                 RectUtil.setRect(thumbRect, cx, cy, thumb_radius);
                 break;
 
@@ -84,4 +88,5 @@ public class JoyStick implements IGameObject {
         }
         return false;
     }
+    public static float getAngle(){return angle_radian;}
 }

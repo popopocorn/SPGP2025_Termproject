@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
@@ -14,32 +16,24 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.ac.tukorea.minseokang.a2025spgp_termproject.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 
-public class Fighter extends Sprite {
-    private static final String TAG = Fighter.class.getSimpleName();
-    private static final float PLANE_WIDTH = 175f;
-    private static final int PLANE_SRC_WIDTH = 80;
+public class Mushmom extends Sprite {
+    private static final String TAG = Mushmom.class.getSimpleName();
+    private static final float PLANE_WIDTH = 120;
+    private static final int PLANE_SRC_WIDTH = 105;
     private static final float SPEED = 300f;
     private float targetX;
 
-    private static final float FIRE_INTERVAL = 0.25f;
+    private final float FIRE_INTERVAL = 1.0f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;
-
-    private static final float SPARK_OFFSET = 66f;
-    private static final float SPARK_DURATION = 0.1f;
-    private static final float SPARK_WIDTH = 115f;
-    private static final float SPARK_HEIGHT = SPARK_WIDTH * 3 / 5;
-    private RectF sparkRect = new RectF();
-    private Bitmap sparkBitmap;
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
 
-    public Fighter() {
+    private JoyStick joyStick = MainScene.getJoyStick();
+    public Mushmom() {
         super(R.mipmap.mushmom);
-        setPosition(Metrics.width / 2, Metrics.height - 200, PLANE_WIDTH, PLANE_WIDTH);
+        setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
         targetX = x;
-
-        sparkBitmap = BitmapPool.get(R.mipmap.shoot);
         srcRect = new Rect();
     }
 
@@ -68,11 +62,17 @@ public class Fighter extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-        if (FIRE_INTERVAL - fireCoolTime < SPARK_DURATION) {
-            RectUtil.setRect(sparkRect, x, y - SPARK_OFFSET, SPARK_WIDTH, SPARK_HEIGHT);
-            canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
+        Log.d("", String.valueOf(Math.toDegrees(joyStick.angle_radian)));
+        if (Math.toDegrees(joyStick.angle_radian) >= 90 || Math.toDegrees(joyStick.angle_radian) <= -90 ){
+            canvas.drawBitmap(bitmap, null, dstRect, null);
+        }else{
+            canvas.save();
+            canvas.scale(-1, 1, dstRect.centerX(), dstRect.centerY());
+            canvas.drawBitmap(bitmap, null, dstRect, null);
+            canvas.restore();
+
         }
+
     }
 
     private void fireBullet() {
