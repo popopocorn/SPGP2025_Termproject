@@ -6,6 +6,10 @@ android {
     namespace = "kr.ac.tukorea.minseokang.a2025spgp_termproject"
     compileSdk = 35
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "kr.ac.tukorea.minseokang.a2025spgp_termproject"
         minSdk = 24
@@ -32,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":a2dg"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "2025SPGP_Termproject"
 include(":app")
- 
+include(":a2dg")
