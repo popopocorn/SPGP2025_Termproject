@@ -20,7 +20,7 @@ public class Mushmom extends Sprite {
     private static final String TAG = Mushmom.class.getSimpleName();
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
-    private static final float SPEED = 300f;
+    private static final float SPEED = 5f;
     private float targetX;
 
     private final float FIRE_INTERVAL = 1.0f;
@@ -30,6 +30,7 @@ public class Mushmom extends Sprite {
     private float rollTime;
 
     private JoyStick joyStick = MainScene.getJoyStick();
+    private float angle;
     public Mushmom() {
         super(R.mipmap.mushmom);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
@@ -39,30 +40,19 @@ public class Mushmom extends Sprite {
 
     @Override
     public void update() {
-        if (targetX < x) {
-            dx = -SPEED;
-        } else if (x < targetX) {
-            dx = SPEED;
-        } else {
-            dx = 0;
-        }
-        super.update();
-        float adjx = x;
-        if ((dx < 0 && x < targetX) || (dx > 0 && x > targetX)) {
-            adjx = targetX;
-        } else {
-            adjx = Math.max(radius, Math.min(x, Metrics.width - radius));
-        }
-        if (adjx != x) {
-            setPosition(adjx, y, PLANE_WIDTH, PLANE_WIDTH);
-        }
+        angle = joyStick.angle_radian;
+        dx = (float)Math.cos(angle) * joyStick.power * SPEED;
+        dy = (float)Math.sin(angle)* joyStick.power* SPEED;
+        x+=dx;
+        y+=dy;
+        setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
         fireBullet();
         updateRoll();
     }
 
     @Override
     public void draw(Canvas canvas) {
-        Log.d("", String.valueOf(Math.toDegrees(joyStick.angle_radian)));
+        //Log.d("", String.valueOf(Math.toDegrees(joyStick.angle_radian)));
         if (Math.toDegrees(joyStick.angle_radian) >= 90 || Math.toDegrees(joyStick.angle_radian) <= -90 ){
             canvas.drawBitmap(bitmap, null, dstRect, null);
         }else{
