@@ -18,6 +18,8 @@ public class Bullet extends Sprite implements IRecyclable, IBoxCollidable, ILaye
     private static final float SPEED = 1000f;
     private int power;
 
+    private float damage;
+
     private JoyStick joyStick = MainScene.getJoyStick();
 
     private float angle = joyStick.angle_radian;

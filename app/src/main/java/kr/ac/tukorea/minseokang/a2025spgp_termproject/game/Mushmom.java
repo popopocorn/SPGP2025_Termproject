@@ -23,6 +23,8 @@ public class Mushmom extends Sprite {
     private static final float SPEED = 5f;
     private float targetX;
 
+    private float hp;
+    private float ad;
     private final float FIRE_INTERVAL = 1.0f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;
