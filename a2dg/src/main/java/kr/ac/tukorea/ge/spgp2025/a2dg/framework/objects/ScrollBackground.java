@@ -2,7 +2,7 @@ package kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects;
 
 import android.graphics.Canvas;
 
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 public class ScrollBackground extends Sprite{
     private int cw = (int)Metrics.width;
     private int ch = (int)Metrics.height;
