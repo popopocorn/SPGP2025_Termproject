@@ -21,22 +21,19 @@ public class Mushmom extends Sprite {
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
     private static final float SPEED = 5f;
-    private float targetX;
 
     private float hp;
     private float ad;
     private final float FIRE_INTERVAL = 1.0f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;
-    private static final float MAX_ROLL_TIME = 0.4f;
-    private float rollTime;
 
     private JoyStick joyStick = MainScene.getJoyStick();
     private float angle;
     public Mushmom() {
         super(R.mipmap.mushmom);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
-        targetX = x;
+
         srcRect = new Rect();
     }
 
@@ -47,9 +44,11 @@ public class Mushmom extends Sprite {
         dy = (float)Math.sin(angle)* joyStick.power* SPEED;
         x+=dx;
         y+=dy;
-        setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
+        x=clamp(-3150, x, 4050);
+        y=clamp(-1100, y, 2700);
+        Log.d("fda", String.format("x: %.2f, y: %.2f", x, y));
+        //setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
         fireBullet();
-        updateRoll();
     }
 
     @Override
@@ -78,45 +77,30 @@ public class Mushmom extends Sprite {
 
         int score = scene.getScore();
         int power = 10 + score / 1000;
-        Bullet bullet = Bullet.get(x, y - BULLET_OFFSET, power);
+        Bullet bullet = Bullet.get(Metrics.width / 2, Metrics.height / 2, power);
         scene.add(bullet);
     }
 
-    private void updateRoll() {
-        //boolean wasZero = rollTime == 0; // for debug log
-        int sign = targetX < x ? -1 : x < targetX ? 1 : 0; // roll 을 변경시킬 부호를 정한다
-        if (x == targetX) {                         // 비행기가 멈췄을 때
-            if (rollTime > 0) sign = -1;         // 오른쪽으로 움직이고 있었다면 감소시킨다
-            else if (rollTime < 0) sign = 1;     // 왼쪽으로 움직이고 있었다면 증가시킨다
-        }
-        rollTime += sign * GameView.frameTime;
-        if (x == targetX) {                           // 비행기가 멈췄을 때
-            if (sign < 0 && rollTime < 0) rollTime = 0; // 감소중이었는데 0 을 지나쳤다면 0으로
-            if (sign > 0 && rollTime > 0) rollTime = 0; // 증가중이었는데 0 을 지나쳤다면 0으로
-        }
-        if (rollTime < -MAX_ROLL_TIME) rollTime = -MAX_ROLL_TIME;    // 최대 MAX_ROLL_TIME 까지만
-        else if (rollTime > MAX_ROLL_TIME) rollTime = MAX_ROLL_TIME;
-
-        //if (!wasZero || rollTime != 0) {
-        //    Log.v(TAG, "RollTime = " + rollTime);
-        //}
-
-        int rollIndex = 5 + (int)(rollTime * 5 / MAX_ROLL_TIME);
-        srcRect.set(rollIndex * PLANE_SRC_WIDTH, 0, (rollIndex + 1) * PLANE_SRC_WIDTH, PLANE_SRC_WIDTH);
-    }
-    private void setTargetX(float x) {
-        targetX = Math.max(radius, Math.min(x, Metrics.width - radius));
-    }
     public boolean onTouch(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
                 float[] pts = Metrics.fromScreen(event.getX(), event.getY());
-                setTargetX(pts[0]);
                 return true;
 
         }
         return false;
+    }
+    public float[] getPosition(){return new float[]{x,y};}
+
+    private float clamp( float min, float x, float max){
+        if (x<min){
+            return min;
+        }
+        if(x>max){
+            return max;
+        }
+        return x;
     }
 }

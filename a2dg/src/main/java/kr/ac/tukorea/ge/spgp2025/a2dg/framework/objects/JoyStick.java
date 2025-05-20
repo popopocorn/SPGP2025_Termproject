@@ -27,7 +27,7 @@ public class JoyStick implements IGameObject {
     private boolean visible;
     private float startX, startY;
     public float power;
-    public static float angle_radian;
+    public float angle_radian;
     public JoyStick(int bgBmpId, int thumbBmpId, float x, float y, float bg_radius, float thumb_radius, float move_radius) {
         this.x = x; this.y = y;
         this.bg_radius = bg_radius;
@@ -88,5 +88,4 @@ public class JoyStick implements IGameObject {
         }
         return false;
     }
-    public static float getAngle(){return angle_radian;}
 }
