@@ -42,7 +42,7 @@ public class Bullet extends Sprite implements IRecyclable, IBoxCollidable, ILaye
     }
     @Override
     public void update() {
-
+        float[] postion = MainScene.getPlayer().getPosition();
         super.update();
         if (dstRect.bottom < 0) {
             Scene.top().remove(this);
