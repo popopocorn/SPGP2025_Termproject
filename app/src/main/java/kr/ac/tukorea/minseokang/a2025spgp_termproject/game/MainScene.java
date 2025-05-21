@@ -11,6 +11,8 @@ public class MainScene extends Scene {
     private static final JoyStick joyStick= new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 450, 1400, 200, 60, 160);
     private static final Mushmom player = new Mushmom();
 
+
+
     //private final Score score;
 
     public enum Layer {
@@ -45,6 +47,9 @@ public class MainScene extends Scene {
     }
 
     // Overridables
+
+    // Game Loop Functions
+
     public static JoyStick getJoyStick(){ return joyStick;}
     public static Mushmom getPlayer(){ return player;}
     @Override

@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -14,9 +15,9 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.ac.tukorea.minseokang.a2025spgp_termproject.R;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.AnimSprite;
 
-public class Mushmom extends Sprite {
+public class Mushmom extends AnimSprite implements IBoxCollidable {
     private static final String TAG = Mushmom.class.getSimpleName();
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
@@ -30,8 +31,10 @@ public class Mushmom extends Sprite {
 
     private JoyStick joyStick = MainScene.getJoyStick();
     private float angle;
+
+    //private RectF collisionBox = new RectF();
     public Mushmom() {
-        super(R.mipmap.mushmom);
+        super(R.mipmap.mushmom, 0);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
 
         srcRect = new Rect();
@@ -46,7 +49,7 @@ public class Mushmom extends Sprite {
         y+=dy;
         x=clamp(-3150, x, 4050);
         y=clamp(-1100, y, 2700);
-        Log.d("fda", String.format("x: %.2f, y: %.2f", x, y));
+        //Log.d("fda", String.format("x: %.2f, y: %.2f", x, y));
         //setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
         fireBullet();
     }
@@ -102,5 +105,10 @@ public class Mushmom extends Sprite {
             return max;
         }
         return x;
+    }
+
+    @Override
+    public RectF getCollisionRect() {
+        return null;
     }
 }

@@ -15,7 +15,6 @@ public class ScrollBackground extends Sprite {
     private float windowH;
 
     private static int extend = 5;
-    private Mushmom mushmom;
     private float[] playerPosition;
 
     public ScrollBackground(int mipmapId) {
@@ -24,13 +23,12 @@ public class ScrollBackground extends Sprite {
         ch = Metrics.height;
         w = (float)bitmap.getWidth();
         h = (float)bitmap.getHeight();
-        mushmom = MainScene.getPlayer();
     }
 
     @Override
     public void update() {
         super.update();
-        playerPosition = mushmom.getPosition();
+        playerPosition = MainScene.getPlayer().getPosition();
         setPosition(cw - playerPosition[0], ch - playerPosition[1], w * extend, h * extend);
     }
 
