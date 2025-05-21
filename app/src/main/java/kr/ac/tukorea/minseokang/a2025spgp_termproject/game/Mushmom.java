@@ -21,7 +21,7 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     private static final String TAG = Mushmom.class.getSimpleName();
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
-    private static final float SPEED = 5f;
+    private final float SPEED = 5f;
 
     private float hp;
     private float ad;
@@ -31,13 +31,9 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
 
     private JoyStick joyStick = MainScene.getJoyStick();
     private float angle;
-
-    //private RectF collisionBox = new RectF();
     public Mushmom() {
         super(R.mipmap.mushmom, 0);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
-
-        srcRect = new Rect();
     }
 
     @Override
@@ -109,6 +105,6 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
 
     @Override
     public RectF getCollisionRect() {
-        return null;
+        return dstRect;
     }
 }
