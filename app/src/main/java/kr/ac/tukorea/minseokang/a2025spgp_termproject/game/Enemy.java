@@ -14,9 +14,16 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     protected float hp;
     protected float exp;
     protected RectF collisionRect = new RectF();
+    private float[] playerPosition;
 
     public Enemy(int mipmapId, float fps) {
         super(mipmapId, fps);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        playerPosition = MainScene.getPlayer().getPosition();
     }
 
     @Override

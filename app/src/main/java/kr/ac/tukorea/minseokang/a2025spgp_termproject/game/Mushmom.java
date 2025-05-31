@@ -21,7 +21,7 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     private static final String TAG = Mushmom.class.getSimpleName();
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
-    private final float SPEED = 5f;
+    private final float SPEED = 300f;
 
     private float hp;
     private float ad;
@@ -39,8 +39,8 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     @Override
     public void update() {
         angle = joyStick.angle_radian;
-        dx = (float)Math.cos(angle) * joyStick.power * SPEED;
-        dy = (float)Math.sin(angle)* joyStick.power* SPEED;
+        dx = (float)Math.cos(angle) * joyStick.power * SPEED * GameView.frameTime;
+        dy = (float)Math.sin(angle)* joyStick.power* SPEED * GameView.frameTime;
         x+=dx;
         y+=dy;
         x=clamp(-3150, x, 4050);
