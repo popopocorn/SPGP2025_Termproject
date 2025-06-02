@@ -16,7 +16,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 public class Sprite implements IGameObject {
     private static final String TAG = Sprite.class.getSimpleName();
     protected Bitmap bitmap;
-    protected Rect srcRect = null;
+    protected Rect srcRect = new Rect();
     protected final RectF dstRect = new RectF();
     protected float x, y, dx, dy;
     protected float width, height, radius;

@@ -24,8 +24,11 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     private final float SPEED = 300f;
 
     private float hp;
-    private float ad;
-    private final float FIRE_INTERVAL = 1.0f;
+    private float ad = 100;
+
+    private int level = 0;
+    private float adPerLevel = 30;
+    private final float FIRE_INTERVAL = 0.5f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;
 
@@ -34,6 +37,9 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     public Mushmom() {
         super(R.mipmap.mushmom, 0);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
+        x=0;
+        y=0;
+
     }
 
     @Override
@@ -45,7 +51,7 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
         y+=dy;
         x=clamp(-3150, x, 4050);
         y=clamp(-1100, y, 2700);
-        //Log.d("fda", String.format("x: %.2f, y: %.2f", x, y));
+        //Log.d("Pos", String.format("x: %.2f, y: %.2f", x, y));
         //setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
         fireBullet();
     }
