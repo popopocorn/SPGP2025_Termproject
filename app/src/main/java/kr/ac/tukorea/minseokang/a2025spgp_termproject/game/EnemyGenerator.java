@@ -11,7 +11,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 public class EnemyGenerator implements IGameObject {
     private static final String TAG = EnemyGenerator.class.getSimpleName();
     private final Random random = new Random();
-    public static final float GEN_INTERVAL = 5.0f;
+    public static final float GEN_INTERVAL = 20.0f;
     private final MainScene scene;
     private float enemyTime = 0;
     private int wave;
@@ -32,12 +32,20 @@ public class EnemyGenerator implements IGameObject {
         wave++;
 
         //StringBuilder enemies = new StringBuilder(); // for debug
+        float[] playerPosition = MainScene.getPlayer().getPosition();
+        float centerX = playerPosition[0];
+        float centerY = playerPosition[1];
+        float radius = 3000.0f;
 
-        for (int i = 0; i < 5; i++) {
-            int level = (wave + 8) / 10 - random.nextInt(3);
-            if (level < 0) level = 0;
+        for (int i = 0; i < 15; i++) {
+            int level = wave%10;
             //if (level > Enemy.MAX_LEVEL) level = Enemy.MAX_LEVEL;
-            scene.add(Enemy.get(level, i));
+
+            double angle = 2 * Math.PI / 5 * i; // 360도를 5등분
+            float spawnX = centerX + (float)(radius * Math.cos(angle));
+            float spawnY = centerY + (float)(radius * Math.sin(angle));
+
+            scene.add(MainScene.Layer.enemy,Enemy.get(level, i, spawnX, spawnY));
             //enemies.append(level); // for debug
         }
         //Log.v(TAG, "Generating: wave " + wave + " : " + enemies.toString());

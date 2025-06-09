@@ -35,7 +35,7 @@ public class MainScene extends Scene {
 
 
         add(Layer.ui, joyStick);
-        //add(Layer.controller, new EnemyGenerator(this));
+        add(Layer.controller, new EnemyGenerator(this));
         //add(Layer.controller, new CollisionChecker(this));
     }
     public void addScore(int amount) {

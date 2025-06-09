@@ -30,7 +30,7 @@ public class ScrollBackground extends Sprite {
     public void update() {
         super.update();
         playerPosition = MainScene.getPlayer().getPosition();
-        setPosition(cw - playerPosition[0], ch - playerPosition[1], w * extend, h * extend);
+        setPosition(cw - playerPosition[0] - Metrics.width/2, ch - playerPosition[1] - Metrics.height/2, w * extend, h * extend);
 //        srcRect.set(
 //                (int)playerPosition[0] - (int)cw/2,
 //                (int)playerPosition[1] - (int)ch/2,
