@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -27,6 +28,7 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     private float ad = 100;
 
     private int level = 0;
+    private int exp;
     private float adPerLevel = 30;
     private final float FIRE_INTERVAL = 0.5f;
     private float fireCoolTime = FIRE_INTERVAL;
@@ -34,6 +36,8 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
 
     private JoyStick joyStick = MainScene.getJoyStick();
     private float angle;
+
+    private float[] targetDir;
     public Mushmom() {
         super(R.mipmap.mushmom, 0);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
@@ -51,12 +55,17 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
         y+=dy;
         x=clamp(-7500, x, 7500);
         y=clamp(-4000, y, 4000);
-        Log.d("Pos", String.format("x: %.2f, y: %.2f", x, y));
+        //Log.d("Pos", String.format("x: %.2f, y: %.2f", x, y));
         //setPosition(x, y, PLANE_WIDTH, PLANE_WIDTH);
 
 
         fireBullet();
-
+        if(exp >= 100){
+            exp-=100;
+            ++level;
+            ad+=10;
+            Log.d("lv","up");
+        }
     }
 
     @Override
@@ -84,9 +93,9 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
         if (scene == null) return;
 
         int score = scene.getScore();
-        int power = 10 + score / 1000;
-        Bullet bullet = Bullet.get(Metrics.width / 2, Metrics.height / 2, power);
-        scene.add(bullet);
+        int power = 50;
+        Bullet bullet = Bullet.get(Metrics.width / 2, Metrics.height / 2, power, targetDir);
+        scene.add(MainScene.Layer.bullet, bullet);
     }
 
     public boolean onTouch(MotionEvent event) {
@@ -115,5 +124,22 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     @Override
     public RectF getCollisionRect() {
         return dstRect;
+    }
+
+    public void setTarget(float[] target) {
+        targetDir = new float[]{ target[0] - Metrics.width/2, target[1] - Metrics.height/2};
+        float length = (float) Math.sqrt(targetDir[0] * targetDir[0] + targetDir[1] * targetDir[1]);
+        if (length != 0) {
+            targetDir[0] /= length;
+            targetDir[1] /= length;
+        }
+    }
+
+    @Override
+    public void DoCollision(IGameObject other) {
+
+    }
+    public void addExp(int exp){
+        this.exp+=exp;
     }
 }

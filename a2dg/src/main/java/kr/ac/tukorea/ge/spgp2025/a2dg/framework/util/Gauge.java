@@ -3,6 +3,7 @@ package kr.ac.tukorea.ge.spgp2025.a2dg.framework.util;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 import androidx.core.content.res.ResourcesCompat;
 

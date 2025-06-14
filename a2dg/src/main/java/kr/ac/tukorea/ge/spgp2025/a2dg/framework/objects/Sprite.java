@@ -80,5 +80,7 @@ public class Sprite implements IGameObject {
     public String toString() {
         return getClass().getSimpleName() + "@" + System.identityHashCode(this) + "(" + (int)width + "x" + (int)height + ")";
     }
+    public void DoCollision(IGameObject other){
 
+    }
 }

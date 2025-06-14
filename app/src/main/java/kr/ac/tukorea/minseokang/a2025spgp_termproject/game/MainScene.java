@@ -1,7 +1,11 @@
 package kr.ac.tukorea.minseokang.a2025spgp_termproject.game;
 
+import android.util.Log;
 import android.view.MotionEvent;
+import java.util.ArrayList;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.ac.tukorea.minseokang.a2025spgp_termproject.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
@@ -36,8 +40,40 @@ public class MainScene extends Scene {
 
         add(Layer.ui, joyStick);
         add(Layer.controller, new EnemyGenerator(this));
-        //add(Layer.controller, new CollisionChecker(this));
+        add(Layer.controller, new CollisionChecker(this));
     }
+
+    // Game Loop Functions
+    @Override
+    public void update() {
+        super.update();
+        float tempDist = Float.MAX_VALUE;
+        Enemy target = null;
+
+        for(IGameObject object : layers.get(1)){
+
+            if (object instanceof Enemy) {
+                Enemy enemy = (Enemy)object;
+                float[] pPosition = new float[]{Metrics.width/2, Metrics.height/2};
+                float[] ePosition = enemy.getLocation();
+                float curDist = distance(pPosition, ePosition);
+                if(curDist < tempDist) {
+                    tempDist = curDist;
+                    target = enemy;
+                }
+            }
+        }
+
+
+        if(target != null){
+            player.setTarget(target.getLocation());
+        }
+    }
+    private float distance(float[] a, float[] b){
+        float dist = (float)Math.hypot(a[0]-b[0], a[1]-b[1]);
+        return dist;
+    }
+
     public void addScore(int amount) {
         //score.add(amount);
     }
