@@ -3,6 +3,7 @@ package kr.ac.tukorea.minseokang.a2025spgp_termproject.game;
 import android.util.Log;
 import android.view.MotionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
@@ -14,6 +15,9 @@ public class MainScene extends Scene {
 
     private static final JoyStick joyStick= new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 450, 1400, 200, 60, 160);
     private static final Mushmom player = new Mushmom();
+
+    private static EnhanceManager enhanceManager = new EnhanceManager();
+
 
 
 
@@ -36,8 +40,6 @@ public class MainScene extends Scene {
         // this.score = new Score(R.mipmap.number_24x32, 850f, 50f, 60f);
         //score.setScore(0);
         //add(Layer.ui, score);
-
-
         add(Layer.ui, joyStick);
         add(Layer.controller, new EnemyGenerator(this));
         add(Layer.controller, new CollisionChecker(this));
@@ -92,4 +94,5 @@ public class MainScene extends Scene {
     public boolean onTouchEvent(MotionEvent event) {
         return joyStick.onTouch(event);
     }
+    public static EnhanceManager getEnhanceManager(){ return enhanceManager;}
 }

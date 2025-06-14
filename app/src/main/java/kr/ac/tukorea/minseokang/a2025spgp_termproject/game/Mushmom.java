@@ -63,8 +63,8 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
         if(exp >= 100){
             exp-=100;
             ++level;
-            ad+=10;
-            Log.d("lv","up");
+            //Log.d("lv","up");
+            new EnhanceScene().push();
         }
     }
 
