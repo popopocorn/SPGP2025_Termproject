@@ -1,40 +1,52 @@
-# 몬스터 서바이버
+![image](https://github.com/user-attachments/assets/3514da9d-d3b3-45df-b398-6928734d4805)# 몬스터 서바이버
 
 ※게임 컨셉※
 
 당신을 토벌하러 오는 모험가들로부터 자신을 지켜라!!!
 메이플월드속 몬스터'머쉬맘'이 되어 몰려오는 모험가를 물리치는 핵앤 슬래시 게임(뱀서라이크)
 
-※개발 상황※
+※개발 진척도※
 ![Image](https://github.com/user-attachments/assets/683f72f5-7c9b-4d75-a957-fc085776bbed)
 
-※GameObject※
-
-Mushmom - 플레이어
-hp, ad, as를 가진 플레이어 객체, 조이스틱의 pow, angle정보를 받아 해당방향으로 이동, 공격을 함
-경험치 객체, 적 객체와 상호작용 구현 예정
-
-bullet - 공격
-플레이어가 발사하는 객체, 플레이어와 동일하게 조이스틱에 angle에 따라 발사 방향이 정해짐
-적 객체와 충돌체크 구현 예정
-7, 8주차에는 플레이어의 강화 요소에 따라 발사체를 다르게 변경할 예정
-
---미구현--
-toben - 잡몹
-mano - 보스1
-balrog - 보스 2
-
+목표에 대한 변경 사항은 없지만 해결 못한 버그들이 있어 추가적으로 하지 못한 것이 있어 아쉽다
 
 ※git 커밋 로그※
 
-전체
-![Image](https://github.com/user-attachments/assets/5016eef8-e98f-46b4-988a-dfee056b5ec7)
 
-1주차
-![Image](https://github.com/user-attachments/assets/1108d5fd-657d-438d-8b07-e98585e7c9ee)
+※사용된 기술※
+오브젝트 풀링
 
-4주차
-![Image](https://github.com/user-attachments/assets/1108d5fd-657d-438d-8b07-e98585e7c9ee)
+※참고한 것들※
+각종 T스토리, 네이버 블로그
+디버그용 gemini, chatgpt
 
-5주차
-![Image](https://github.com/user-attachments/assets/d2552100-1b0e-4a61-8f08-17f5e3e097ea)
+※수업내용 참고※
+기본적인 구조, 오브젝트의 생성 및 소멸
+충돌 처리
+버튼
+
+※직접 개발※
+강화효과 선택의 구현
+enemey generator 로직 수정
+
+※하고싶었지만 못한것※
+게이지 구현
+적 죽일시 exp를 바로 획득하는 것이 아닌 드랍하는 것
+위 사항들을 버그로 인하여 구현하지 못했음
+
+디버그 모드 버튼
+  버튼의 touch event와 joystick의 touch event가 동시에 처리가 되지 않는다
+  하나가 활성화 되면 하나가 작동하지 않고, 둘 다 작동에 성공시켜도, 디버그 모드 버튼이 눌리지 않았는데 호출된다
+
+※해결하지 못한 버그※
+게이지가 화면에 그려지지 않음(수업 자료를 그대로 가져와도 그려지지 않음)
+exp객체가 충돌이 일어나도 delete 되지 않고 플레이어의 스프라이트와 섞여서 그려짐
+씬 전환에서 죽었을 때 diescene에서 확인을 누를 시 popall을 해야하는데, 자기 자신을 남겨둠
+
+※기말 프로젝트 중 어려웠던 점※
+c++, python등과 달리 처음 보는 언어라 문법적, 또는 기타 특성에 대해 어려움이 있었다.
+
+※수업에 대한 내용※
+일단 내가 제작할 게임에 필요한 기술, 구조 등을 대부분 수업에서 제공해 주셔서 제작하는데 큰 도움이 되었다.
+기존 sourcetree보다 이후에 사용한 android studio 자체의 git commit 로그가 더 보기 편하였다.
+
