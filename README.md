@@ -6,12 +6,14 @@
 메이플월드속 몬스터'머쉬맘'이 되어 몰려오는 모험가를 물리치는 핵앤 슬래시 게임(뱀서라이크)
 
 ※개발 진척도※
+
 ![Image](https://github.com/user-attachments/assets/7556284d-29b0-4d31-aef2-51af647ee95d)
 
 
 목표에 대한 변경 사항은 없지만 해결 못한 버그들이 있어 추가적으로 하지 못한 것이 있어 아쉽다
 
 ※git 커밋 로그※
+
 ![Image](https://github.com/user-attachments/assets/5f4f8c08-d32d-4f38-9ad6-ca0858ac5143)
 
 
