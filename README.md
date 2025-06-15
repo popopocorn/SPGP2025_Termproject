@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3514da9d-d3b3-45df-b398-6928734d4805)# 몬스터 서바이버
+몬스터 서바이버
 
 ※게임 컨셉※
 
@@ -6,11 +6,13 @@
 메이플월드속 몬스터'머쉬맘'이 되어 몰려오는 모험가를 물리치는 핵앤 슬래시 게임(뱀서라이크)
 
 ※개발 진척도※
-![Image](https://github.com/user-attachments/assets/683f72f5-7c9b-4d75-a957-fc085776bbed)
+![image](https://github.com/user-attachments/assets/36c380ae-c2ee-45c7-b4b0-81b732a76acc)
+
 
 목표에 대한 변경 사항은 없지만 해결 못한 버그들이 있어 추가적으로 하지 못한 것이 있어 아쉽다
 
 ※git 커밋 로그※
+[image](https://github.com/user-attachments/assets/969ef3ed-3db8-49d2-8000-f1b898d2bab4)
 
 
 ※사용된 기술※
