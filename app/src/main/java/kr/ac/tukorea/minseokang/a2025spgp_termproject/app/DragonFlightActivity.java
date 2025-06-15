@@ -11,7 +11,9 @@ public class DragonFlightActivity extends GameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GameView.drawsDebugStuffs = BuildConfig.DEBUG;
+        GameView.drawsDebugStuffs =
+                //BuildConfig.DEBUG;
+                false;
         super.onCreate(savedInstanceState);
         new MainScene().push();
     }

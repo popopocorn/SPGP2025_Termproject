@@ -22,22 +22,27 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
     private static final String TAG = Mushmom.class.getSimpleName();
     private static final float PLANE_WIDTH = 120;
     private static final int PLANE_SRC_WIDTH = 105;
-    private final float SPEED = 350f;
+    private float SPEED = 350f;
 
-    private float hp;
-    private float ad = 100;
+    private float hp = 600;
+    private float ad = 50;
 
     private int level = 0;
     private int exp;
-    private float adPerLevel = 30;
-    private final float FIRE_INTERVAL = 0.5f;
+    private float FIRE_INTERVAL = 0.6f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;
 
+    private boolean bulletUpgrade=false;
+
     private JoyStick joyStick = MainScene.getJoyStick();
     private float angle;
-
+    private float hitFrame = 0.1f;
+    private float hittime = 0.0f;
+    private boolean mujeok = false;
     private float[] targetDir;
+
+    private boolean isgod=false;
     public Mushmom() {
         super(R.mipmap.mushmom, 0);
         setPosition(Metrics.width / 2, Metrics.height / 2, PLANE_WIDTH, PLANE_WIDTH);
@@ -66,6 +71,19 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
             //Log.d("lv","up");
             new EnhanceScene().push();
         }
+        if(mujeok){
+            hittime+=GameView.frameTime;
+            if(hittime>hitFrame){
+                hittime=0;
+                mujeok=false;
+            }
+        }
+
+        if(hp<0){
+            new DieScene().push();
+        }
+        Log.d("hp", String.valueOf(hp));
+
     }
 
     @Override
@@ -93,8 +111,8 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
         if (scene == null) return;
 
         int score = scene.getScore();
-        int power = 50;
-        Bullet bullet = Bullet.get(Metrics.width / 2, Metrics.height / 2, power, targetDir);
+
+        Bullet bullet = Bullet.get(Metrics.width / 2, Metrics.height / 2, ad, targetDir, bulletUpgrade);
         scene.add(MainScene.Layer.bullet, bullet);
     }
 
@@ -137,9 +155,44 @@ public class Mushmom extends AnimSprite implements IBoxCollidable {
 
     @Override
     public void DoCollision(IGameObject other) {
-
+        if(other instanceof Enemy){
+            if(!mujeok){
+                mujeok=true;
+                Enemy e = (Enemy) other;
+                hp -= e.Damage();
+                //Log.d("d", "oh");
+            }
+        }
     }
     public void addExp(int exp){
         this.exp+=exp;
     }
+    public void addEnhance(Enhance enhance, boolean done){
+        if(done){
+            ad+=5;
+            return;
+        }else{
+            switch (enhance){
+                case AdUp:
+                    ad+=20;
+                    break;
+                case SizeUp:
+                    bulletUpgrade=true;
+                    break;
+                case AsUp:
+                    FIRE_INTERVAL-=0.1f;
+                    break;
+                case SpeedUp:
+                    SPEED +=20;
+                    break;
+                case nonHitUp:
+                    hitFrame+=0.1f;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void setGot(){ isgod=!isgod;}
 }

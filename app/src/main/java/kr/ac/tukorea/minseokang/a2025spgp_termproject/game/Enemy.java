@@ -31,7 +31,7 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     private float screenx;
     private float screeny;
 
-    protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_fg);
+    protected EnemyGauge gauge;
 
     public static Enemy get(int level, int index, float initx, float inity) {
         return Scene.top().getRecyclable(Enemy.class).init(level, index, initx, inity);
@@ -39,12 +39,12 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     private Enemy init(int level, int idx, float initx, float inity){
         if( (level % 5) == 0 && idx == 4){
             setImageResourceId(R.mipmap.mano);
-            this.hp = this.Maxhp = (float)(((float)level * 0.1 + 1) * 100) * 5;
+            this.hp = this.Maxhp = (float)(((float)level + 1) * 100) * 5;
             //Log.d("ploc", String.valueOf(bitmap.hasMipMap()));
             exp = 50;
         }else{
             setImageResourceId(R.mipmap.toben);
-            this.hp = this.Maxhp = (float)(((float)level * 0.1 + 1) * 100);
+            this.hp = this.Maxhp = (float)(((float)level + 1) * 100);
             ad = (float)(((float)level * 0.1 + 1) * 5);
             exp = 5;
         }
@@ -52,7 +52,7 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
         y=inity;
         updateCollisionRect();
         this.level = level;
-
+        gauge = new EnemyGauge(this);
         return this;
     }
     public Enemy() {
@@ -89,15 +89,13 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
             Scene.top().remove(this);
             MainScene.getPlayer().addExp(exp);
         }
+        gauge.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, null, dstRect, null);
-        float gauge_width = width;
-        float gauge_x = screenx - gauge_width / 2;
-        float gauge_y = dstRect.bottom;
-        gauge.draw(canvas,gauge_x, gauge_y, gauge_width, (float)hp / Maxhp);
+        gauge.draw(canvas);
 
 
     }
@@ -141,4 +139,9 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
             //Log.d("bullet", Float.toString(hp));
         }
     }
+    public float Damage(){
+        return ad;
+    }
+
+    public float getRatio(){return (float)hp/Maxhp;}
 }

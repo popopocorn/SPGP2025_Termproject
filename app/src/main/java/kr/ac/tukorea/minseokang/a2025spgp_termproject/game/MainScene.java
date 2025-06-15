@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Button;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.ac.tukorea.minseokang.a2025spgp_termproject.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -17,7 +18,6 @@ public class MainScene extends Scene {
     private static final Mushmom player = new Mushmom();
 
     private static EnhanceManager enhanceManager = new EnhanceManager();
-
 
 
 
@@ -94,5 +94,11 @@ public class MainScene extends Scene {
     public boolean onTouchEvent(MotionEvent event) {
         return joyStick.onTouch(event);
     }
+
+    @Override
+    protected int getTouchLayerIndex() {
+        return Layer.controller.ordinal();
+    }
+
     public static EnhanceManager getEnhanceManager(){ return enhanceManager;}
 }

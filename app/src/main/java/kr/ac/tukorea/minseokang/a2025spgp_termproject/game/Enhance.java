@@ -5,4 +5,6 @@ public enum Enhance {
     SizeUp,
     AsUp,
     SpeedUp,
+    nonHitUp,
+
 }

@@ -4,8 +4,11 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
+
 
 public class EnhanceManager implements IGameObject {
     private ArrayList<Enhance> enhanceList = new ArrayList<>(Arrays.asList(
@@ -25,7 +28,9 @@ public class EnhanceManager implements IGameObject {
 
             Enhance.SpeedUp,
             Enhance.SpeedUp,
-            Enhance.SpeedUp
+            Enhance.SpeedUp,
+
+            Enhance.nonHitUp
 
     ));
     @Override
@@ -39,6 +44,13 @@ public class EnhanceManager implements IGameObject {
     }
 
     public ArrayList<Enhance> getEnhanceList() {
+        Collections.shuffle(enhanceList, new Random());
         return enhanceList;
+    }
+
+    public void popEnhance(Enhance e){
+        if(enhanceList.contains(e)){
+            enhanceList.remove(e);
+        }
     }
 }
